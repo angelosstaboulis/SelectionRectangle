@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D680816E2AA3DE70001B87E3 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D680816D2AA3DE70001B87E3 /* DrawView.swift */; };
 		D68EB0DA2A96885400256C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EB0D92A96885400256C85 /* AppDelegate.swift */; };
 		D68EB0DC2A96885400256C85 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68EB0DB2A96885400256C85 /* ViewController.swift */; };
 		D68EB0DE2A96885600256C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D68EB0DD2A96885600256C85 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D680816D2AA3DE70001B87E3 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		D68EB0D62A96885400256C85 /* SelectionRectangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SelectionRectangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68EB0D92A96885400256C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D68EB0DB2A96885400256C85 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				D68EB0DD2A96885600256C85 /* Assets.xcassets */,
 				D68EB0DF2A96885600256C85 /* Main.storyboard */,
 				D68EB0E22A96885600256C85 /* SelectionRectangle.entitlements */,
+				D680816D2AA3DE70001B87E3 /* DrawView.swift */,
 			);
 			path = SelectionRectangle;
 			sourceTree = "<group>";
@@ -137,6 +140,8 @@
 			dependencies = (
 			);
 			name = SelectionRectangle;
+			packageProductDependencies = (
+			);
 			productName = SelectionRectangle;
 			productReference = D68EB0D62A96885400256C85 /* SelectionRectangle.app */;
 			productType = "com.apple.product-type.application";
@@ -209,6 +214,8 @@
 				Base,
 			);
 			mainGroup = D68EB0CD2A96885400256C85;
+			packageReferences = (
+			);
 			productRefGroup = D68EB0D72A96885400256C85 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -253,6 +260,7 @@
 			files = (
 				D68EB0DC2A96885400256C85 /* ViewController.swift in Sources */,
 				D68EB0DA2A96885400256C85 /* AppDelegate.swift in Sources */,
+				D680816E2AA3DE70001B87E3 /* DrawView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

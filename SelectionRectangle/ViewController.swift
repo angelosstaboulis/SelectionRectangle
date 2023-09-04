@@ -6,70 +6,85 @@
 //
 
 import Cocoa
-class DrawView: NSImageView {
+import AppKit
+import SwiftUI
+
+class SelectionView:NSImageView{
+    var newImage:NSImage!
+    var nsView = NSView()
     var rect:NSRect!
-    var startPoint: NSPoint?
-    var draggedPoint: NSPoint?
+    var startPoint:NSPoint!
+    var draggedPoint:NSPoint!
+
+    override init(frame: NSRect){
+        super.init(frame: frame)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        drawSelectionRectangle()
-    }
-    func drawSelectionRectangle(){
-        guard let ctx = NSGraphicsContext.current?.cgContext else {
-            return
-        }
-        guard let rectangle = rect else {
-            return
-        }
-
-        ctx.setFillColor(NSColor.clear.cgColor)
-        ctx.setStrokeColor(NSColor.black.cgColor)
-        ctx.setLineWidth(10)
-
-        ctx.addRect(rectangle)
-        ctx.drawPath(using: .fillStroke)
+        drawRectangle()
     }
     
-    
-    func imageRepresentation()->NSImage{
-        let imageRepresentation = bitmapImageRepForCachingDisplay(in: bounds)!
-        cacheDisplay(in: bounds, to: imageRepresentation)
-        return NSImage(cgImage: imageRepresentation.cgImage!, size: bounds.size)
-        
+    func drawRectangle(){
+        nsView.frame = .zero
+        nsView.wantsLayer = true
+        nsView.layer?.borderWidth = 15
+        nsView.layer?.borderColor = NSColor.red.cgColor
+        nsView.isHidden = true
+        addSubview(nsView)
     }
+    
     
     override func mouseDown(with event: NSEvent) {
+        nsView.isHidden = false
         startPoint = event.locationInWindow
     }
     override func mouseDragged(with event: NSEvent) {
         draggedPoint = event.locationInWindow
-                
-        rect = NSRect(x: startPoint!.x, y: startPoint!.y, width: draggedPoint!.x - startPoint!.x, height: draggedPoint!.y - startPoint!.y)
+        rect = NSRect(x: min(startPoint.x,draggedPoint.x), y: min(startPoint.y,draggedPoint.y), width: abs(startPoint.x - draggedPoint.x), height: abs(startPoint.y - draggedPoint.y))
+        nsView.frame = rect
         
-        needsDisplay = true
     }
-
-
+    func clearBox(rectangle:NSRect){
+        let box = CAShapeLayer()
+        box.frame = rectangle
+        box.backgroundColor =  NSColor.windowBackgroundColor.cgColor
+        superview!.layer!.addSublayer(box)
+    }
+    func clearSelectionRectangle(){
+            clearBox(rectangle: rect)
+    }
+    override func mouseUp(with event: NSEvent) {
+        let pdfData = superview!.dataWithPDF(inside: nsView.frame)
+        newImage = NSImage(data: pdfData)
+       
+    }
+    
 }
 
-class ViewController: NSViewController {
-    let drawView = DrawView()
-    override func loadView() {
-        view = drawView
-    }
 
+
+// MARK: - Initialization
+
+class ViewController: NSViewController {
+    let nsView = DrawView(frame: .zero, image: .init())
+    
+    override func loadView() {
+        view = nsView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        drawView.frame = NSScreen.main!.frame
-        // Do any additional setup after loading the view.
+        nsView.frame = NSScreen.main!.frame
     }
-   
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
+            
         }
     }
-
-
+    
+    
 }
 
